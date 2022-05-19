@@ -1,0 +1,8 @@
+BetterBraccio	KEYWORD1
+softStart	KEYWORD2
+setCenter 	KEYWORD2
+getCenter	KEYWORD2
+moveCenter	KEYWORD2
+servoMove	KEYWORD2
+manualMove	KEYWORD2
+safePos		KEYWORD2
