@@ -119,7 +119,7 @@ void BetterBraccio::softStart()
 {					// softStart default location
 	if(_M1center > 0){
 	_M1safe = _M1center;	//Set beginning locations if setCenter has been set
-	_M4safe = _M4center;
+	_M5safe = _M5center;
 	}
 	
 	_lastM1 = _M1safe;
@@ -152,7 +152,7 @@ void BetterBraccio::softStart(boolean toggle)
 {					// softStart default location
 	if(_M1center > 0){
 	_M1safe = _M1center;	//Set beginning locations if setCenter has been set
-	_M4safe = _M4center;
+	_M5safe = _M5center;
 	}
 	
 	_lastM1 = _M1safe;
