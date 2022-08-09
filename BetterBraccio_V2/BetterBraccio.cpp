@@ -1,5 +1,5 @@
 /*
-	RobotMove is designed for the Braccio robot arm
+	BetterBraccio is designed for the Braccio robot arm
 */
 
 #include "BetterBraccio.h"
@@ -108,7 +108,7 @@ int BetterBraccio::getCenter(String motor)
 void BetterBraccio::moveCenter(int speed)
 {
 	if(!(_M1center < 0)){
-	RobotMove::servoMove(speed, _M1center, _M2center, _M3center, _M4center, _M5center, _M6center);
+	BetterBraccio::servoMove(speed, _M1center, _M2center, _M3center, _M4center, _M5center, _M6center);
 	}
 }
 	
@@ -118,35 +118,43 @@ void BetterBraccio::moveCenter(int speed)
 void BetterBraccio::softStart()
 {					// softStart default location
 	if(_M1center < 0){
-	_lastM1 = 0;		//Set default beginning locations
-	_lastM2 = 20;
-	_lastM3 = 40;
-	_lastM4 = 0;
-	_lastM5 = 0;
-	_lastM6 = 0;
+	_M1safe = 0;		//Set default beginning locations
+	_M2safe = 20;
+	_M3safe = 40;
+	_M4safe = 0;
+	_M5safe = 0;
+	_M6safe = 0;
 	} else {
-	_lastM1 = _M1center;	//Set beginning locations if setCenter has been set
-	_lastM2 = 20;
-	_lastM3 = 40;
-	_lastM4 = 0;
-	_lastM5 = _M5center;
-	_lastM6 = 0;
+	_M1safe = _M1center;	//Set beginning locations if setCenter has been set
+	_M2safe = 20;
+	_M3safe = 40;
+	_M3safe = 0;
+	_M4safe = _M5center;
+	_M6safe = 0;
 	}
+	
+	_lastM1 = _M1safe;
+	_lastM2 = _M2safe;
+	_lastM3 = _M3safe;
+	_lastM4 = _M4safe;
+	_lastM5 = _M5safe;
+	_lastM6 = _M6safe;
+	
 	//-----------------------
 	shoulder.attach(10);		// Move cluster 1 
 	elbow.attach(9);		// Shoulder + Elbow
-	shoulder.write(_lastM2);
-	elbow.write(_lastM3);
+	shoulder.write(_M2safe);
+	elbow.write(_M3safe);
 	digitalPWM(30, 2000, 0);
 	//-----------------------
 	base.attach(11);		//Move cluster 2
 	wrist_v.attach(6);		// Base + Wrist + gripper
 	wrist_r.attach(5);
 	gripper.attach(3);
-	base.write(_lastM1);	
-	wrist_v.write(_lastM4);
-	wrist_r.write(_lastM5);
-	gripper.write(_lastM6);
+	base.write(_M1safe);	
+	wrist_v.write(_M4safe);
+	wrist_r.write(_M5safe);
+	gripper.write(_M6safe);
 	digitalPWM(15, 750, 1);
 	//-----------------------
 }
@@ -154,35 +162,43 @@ void BetterBraccio::softStart()
 void BetterBraccio::softStart(boolean toggle)
 {					// softStart default location
 	if(_M1center < 0){
-	_lastM1 = 0;		//Set default beginning locations
-	_lastM2 = 20;
-	_lastM3 = 40;
-	_lastM4 = 0;
-	_lastM5 = 0;
-	_lastM6 = 0;
+	_M1safe = 0;		//Set default beginning locations
+	_M2safe = 20;
+	_M3safe = 40;
+	_M4safe = 0;
+	_M5safe = 0;
+	_M6safe = 0;
 	} else {
-	_lastM1 = _M1center;	//Set beginning locations if setCenter has been set
-	_lastM2 = 20;
-	_lastM3 = 40;
-	_lastM4 = 0;
-	_lastM5 = _M5center;
-	_lastM6 = 0;
+	_M1safe = _M1center;	//Set beginning locations if setCenter has been set
+	_M2safe = 20;
+	_M3safe = 40;
+	_M3safe = 0;
+	_M4safe = _M5center;
+	_M6safe = 0;
 	}
+	
+	_lastM1 = _M1safe;
+	_lastM2 = _M2safe;
+	_lastM3 = _M3safe;
+	_lastM4 = _M4safe;
+	_lastM5 = _M5safe;
+	_lastM6 = _M6safe;
+	
 	//-----------------------
 	shoulder.attach(10);		// Move cluster 1 
 	elbow.attach(9);		// Shoulder + Elbow
-	shoulder.write(_lastM2);
-	elbow.write(_lastM3);
+	shoulder.write(_M2safe);
+	elbow.write(_M3safe);
 	digitalPWM(30, 2000, 0);
 	//-----------------------
 	base.attach(11);		//Move cluster 2
 	wrist_v.attach(6);		// Base + Wrist + gripper
 	wrist_r.attach(5);
 	gripper.attach(3);
-	base.write(_lastM1);	
-	wrist_v.write(_lastM4);
-	wrist_r.write(_lastM5);
-	gripper.write(_lastM6);
+	base.write(_M1safe);	
+	wrist_v.write(_M4safe);
+	wrist_r.write(_M5safe);
+	gripper.write(_M6safe);
 	digitalPWM(15, 750, 0);
 	//-----------------------
 	if(toggle){
@@ -209,11 +225,18 @@ void BetterBraccio::softStart(int M1, int M2, int M3, int M4, int M5, int M6)
 	_M4safe = M4;
 	_M5safe = M5;
 	_M6safe = M6;
-
+	
+	_lastM1 = _M1safe;
+	_lastM2 = _M2safe;
+	_lastM3 = _M3safe;
+	_lastM4 = _M4safe;
+	_lastM5 = _M5safe;
+	_lastM6 = _M6safe;
+	
 	shoulder.attach(10);		// Move cluster 1 
 	elbow.attach(9);		// Shoulder + Elbow
-	shoulder.write(_lastM2);
-	elbow.write(_lastM3);
+	shoulder.write(_M2safe);
+	elbow.write(_M3safe);
 	digitalPWM(30, 2000, 0);
 
 	base.attach(11);		//Move cluster 2
@@ -221,35 +244,34 @@ void BetterBraccio::softStart(int M1, int M2, int M3, int M4, int M5, int M6)
 	wrist_r.attach(5);
 	gripper.attach(3);
 	
-	base.write(_lastM1);	
-	wrist_v.write(_lastM5);
-	wrist_r.write(_lastM4);
-	gripper.write(_lastM6);
+	base.write(_M1safe);	
+	wrist_v.write(_M4safe);
+	wrist_r.write(_M5safe);
+	gripper.write(_M6safe);
 	digitalPWM(15, 750, 1);
 	
 }
 
 void BetterBraccio::safePos(int speed)
 {
-	if(_M1center > 0){
-	_M1safe = _M1center;
-	}	
-	RobotMove::servoMove(speed, _lastM1, _M2safe, _M3safe, _M4safe, _M5safe, _M6safe);
+	
+	BetterBraccio::servoMove(speed, _lastM1, _M2safe, _M3safe, _M4safe, _M5safe, _M6safe);
+	BetterBraccio::servoMove(speed, _M1safe, _M2safe, _M3safe, _M4safe, _M5safe, _M6safe);
 	
 }
 
 void BetterBraccio::safePos(int speed, boolean toggle)
 {
-	if(_M1center > 0){
-	_M1safe = _M1center;
-	}
 	
-	RobotMove::servoMove(speed, _lastM1, _M2safe, _M3safe, _M4safe, _M5safe, _M6safe);
+	BetterBraccio::servoMove(speed, _lastM1, _M2safe, _M3safe, _M4safe, _M5safe, _M6safe);
+	BetterBraccio::servoMove(speed, _M1safe, _M2safe, _M3safe, _M4safe, _M5safe, _M6safe);
 	
 	if(toggle == 0 || toggle == 1){
 	delay(500);
 	digitalWrite(_Vref, toggle);
 	}
+	
+	
 }
 
 /*
@@ -429,7 +451,7 @@ while(true){
     } else if (_readString.compareTo("end") == 10){
 		
 		Serial.println(F("-------------MOVING TO SAFE POSITION-------------"));
-		RobotMove::safePos(20, false);
+		BetterBraccio::safePos(20, false);
 		Serial.println(F("---------------------GOODBYE---------------------"));
 		Serial.end();
 		while(true){}
@@ -558,12 +580,12 @@ while(true){
 	
 	_motorStatus = 0;	
 
-    if(_motor == 1) RobotMove::servoMove(speed, _location, _lastM2, _lastM3, _lastM4, _lastM5, _lastM6);	// Move motors
-    if(_motor == 2) RobotMove::servoMove(speed, _lastM1, _location, _lastM3, _lastM4, _lastM5, _lastM6);
-    if(_motor == 3) RobotMove::servoMove(speed, _lastM1, _lastM2, _location, _lastM4, _lastM5, _lastM6);
-    if(_motor == 4) RobotMove::servoMove(speed, _lastM1, _lastM2, _lastM3, _location, _lastM5, _lastM6);
-    if(_motor == 5) RobotMove::servoMove(speed, _lastM1, _lastM2, _lastM3, _lastM4, _location, _lastM6);
-    if(_motor == 6) RobotMove::servoMove(speed, _lastM1, _lastM2, _lastM3, _lastM4, _lastM5, _location);
+    if(_motor == 1) BetterBraccio::servoMove(speed, _location, _lastM2, _lastM3, _lastM4, _lastM5, _lastM6);	// Move motors
+    if(_motor == 2) BetterBraccio::servoMove(speed, _lastM1, _location, _lastM3, _lastM4, _lastM5, _lastM6);
+    if(_motor == 3) BetterBraccio::servoMove(speed, _lastM1, _lastM2, _location, _lastM4, _lastM5, _lastM6);
+    if(_motor == 4) BetterBraccio::servoMove(speed, _lastM1, _lastM2, _lastM3, _location, _lastM5, _lastM6);
+    if(_motor == 5) BetterBraccio::servoMove(speed, _lastM1, _lastM2, _lastM3, _lastM4, _location, _lastM6);
+    if(_motor == 6) BetterBraccio::servoMove(speed, _lastM1, _lastM2, _lastM3, _lastM4, _lastM5, _location);
 
 	}
 }
