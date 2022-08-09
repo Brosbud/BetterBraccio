@@ -117,20 +117,9 @@ void BetterBraccio::moveCenter(int speed)
 //--------------------------------------------------------------------------------------
 void BetterBraccio::softStart()
 {					// softStart default location
-	if(_M1center < 0){
-	_M1safe = 0;		//Set default beginning locations
-	_M2safe = 20;
-	_M3safe = 40;
-	_M4safe = 0;
-	_M5safe = 0;
-	_M6safe = 0;
-	} else {
+	if(_M1center > 0){
 	_M1safe = _M1center;	//Set beginning locations if setCenter has been set
-	_M2safe = 20;
-	_M3safe = 40;
-	_M3safe = 0;
-	_M4safe = _M5center;
-	_M6safe = 0;
+	_M4safe = _M4center;
 	}
 	
 	_lastM1 = _M1safe;
@@ -161,20 +150,9 @@ void BetterBraccio::softStart()
 
 void BetterBraccio::softStart(boolean toggle)
 {					// softStart default location
-	if(_M1center < 0){
-	_M1safe = 0;		//Set default beginning locations
-	_M2safe = 20;
-	_M3safe = 40;
-	_M4safe = 0;
-	_M5safe = 0;
-	_M6safe = 0;
-	} else {
+	if(_M1center > 0){
 	_M1safe = _M1center;	//Set beginning locations if setCenter has been set
-	_M2safe = 20;
-	_M3safe = 40;
-	_M3safe = 0;
-	_M4safe = _M5center;
-	_M6safe = 0;
+	_M4safe = _M4center;
 	}
 	
 	_lastM1 = _M1safe;
@@ -218,7 +196,7 @@ void BetterBraccio::softStart(int M1, int M2, int M3, int M4, int M5, int M6)
 	if(M4 > _M4min && M4 < _M4max) _lastM4 = M4;
 	if(M5 > _M5min && M5 < _M5max) _lastM5 = M5;
 	if(M6 > _M6min && M6 < _M6max) _lastM6 = M6;
-
+	
 	_M1safe = M1;
 	_M2safe = M2;
 	_M3safe = M3;
@@ -271,6 +249,18 @@ void BetterBraccio::safePos(int speed, boolean toggle)
 	digitalWrite(_Vref, toggle);
 	}
 	
+	
+}
+
+void BetterBraccio::setSafePos(int M1, int M2, int M3, int M4, int M5, int M6)
+{
+	
+	_M1safe = M1;
+	_M2safe = M2;
+	_M3safe = M3;
+	_M4safe = M4;
+	_M5safe = M5;
+	_M6safe = M6;
 	
 }
 
