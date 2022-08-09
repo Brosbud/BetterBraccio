@@ -36,6 +36,8 @@
 	-safePos(int speed) - Move to safePosition, either default or if softStart called with own locations	
 	-safePos(int speed, boolean toggle) - False turns motors off after getting to safeposition
 						Should be turned back on with softStart
+	-setSafePos(base, shoulder, elbow, wrist vertical, wrist rotation, gripper) - Set your custom safePos without adding it to SoftStart
+			call, or change it on the fly
 
 
 	-servoMove(speed, motor1, motor2, motor3, motor4, motor5, motor6)- 
