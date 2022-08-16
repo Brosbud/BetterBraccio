@@ -6,3 +6,4 @@ moveCenter	KEYWORD2
 servoMove	KEYWORD2
 manualMove	KEYWORD2
 safePos		KEYWORD2
+setSafePos 	KEYWORD2

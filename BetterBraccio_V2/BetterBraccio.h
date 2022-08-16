@@ -37,6 +37,13 @@ class BetterBraccio
 
 	void safePos(int speed);
 	void safePos(int speed, boolean toggle);
+	void setSafePos(int M1, 
+			int M2, 
+			int M3, 
+			int M4, 
+			int M5, 
+			int M6
+			);
 	
 	void servoMove(int speed, 
 			int M1, 
@@ -66,7 +73,7 @@ class BetterBraccio
 	int _M4center = -1;
 	int _M5center = -1;
 	int _M6center = -1;
-	// ---------------------- Safe positions
+	// ---------------------- Set safePos default values
 	int _M1safe = 0;
 	int _M2safe = 20;
 	int _M3safe = 40;
@@ -89,7 +96,8 @@ class BetterBraccio
 	int _M5min = 0;
 	int _M6min = 0;
 	int _speedmin = 0;
-	// ----------------------
+	// ---------------------- 
+	
 	int _Vref;
 	int _up;
 	int _down;

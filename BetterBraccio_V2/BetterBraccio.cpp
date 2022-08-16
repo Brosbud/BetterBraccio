@@ -21,12 +21,14 @@ BetterBraccio::BetterBraccio()
 
 void BetterBraccio::setCenter(int M1, int M2, int M3, int M4, int M5, int M6)
 {
-	if(M1 > _M1min && M1 < _M1max) _M1center = M1;
-	if(M2 > _M2min && M2 < _M2max) _M2center = M2;
-	if(M3 > _M3min && M3 < _M3max) _M3center = M3;
-	if(M4 > _M4min && M4 < _M4max) _M4center = M4;
-	if(M5 > _M5min && M5 < _M5max) _M5center = M5;
-	if(M6 > _M6min && M6 < _M6max) _M6center = M6;
+	
+	_M1center = M1;
+	_M2center = M2;
+	_M3center = M3;
+	_M4center = M4;
+	_M5center = M5;
+	_M6center = M6;
+	
 }
 
 /*
@@ -117,8 +119,7 @@ void BetterBraccio::moveCenter(int speed)
 //--------------------------------------------------------------------------------------
 void BetterBraccio::softStart()
 {					// softStart default location
-	if(_M1center > 0){
-	_M1safe = _M1center;	//Set beginning locations if setCenter has been set
+	if(_M1center > 0){	//Set beginning locations if setCenter has been set
 	_M5safe = _M5center;
 	}
 	
@@ -150,8 +151,7 @@ void BetterBraccio::softStart()
 
 void BetterBraccio::softStart(boolean toggle)
 {					// softStart default location
-	if(_M1center > 0){
-	_M1safe = _M1center;	//Set beginning locations if setCenter has been set
+	if(_M1center > 0){	//Set beginning locations if setCenter has been set
 	_M5safe = _M5center;
 	}
 	
