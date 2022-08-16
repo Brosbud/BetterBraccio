@@ -387,6 +387,108 @@ void BetterBraccio::servoMove(int speed, int M1, int M2, int M3, int M4, int M5,
         }
 }
 
+void BetterBraccio::servoMove(int speed, double M1, double M2, double M3, double M4, double M5, double M6)
+{
+	Serial.begin(9600);
+	
+      if(speed > _speedmax) speed = _speedmax;//---------- SPEED
+      if(speed < _speedmin) speed = _speedmin;
+      if(M1 < _M1min) 	M1 = _M1min;	//---------- M1, BASE
+      if(M1 > _M1max) 	M1 = _M1max;
+      if(M2 < _M2min) 	M2 = _M2min;	//---------- M2, SHOULDER
+      if(M2 > _M2max) 	M2 = _M2max;
+      if(M3 < _M3min) 	M3 = _M3min;	//---------- M3, ELBOW
+      if(M3 > _M3max) 	M3 = _M3max;
+      if(M4 < _M4min) 	M4 = _M4min;	//---------- M4, WRIST VERTICAL
+      if(M4 > _M4max) 	M4 = _M4max;
+      if(M5 < _M5min) 	M5 = _M5min;	//---------- M5, WRIST ROTATION
+      if(M5 > _M5max) 	M5 = _M5max;   	
+      if(M6 < _M6min) 	M6 = _M6min;	//---------- M6, GRIPPER
+      if(M6 > _M6max) 	M6 = _M6max;
+      
+		// Get given locations in microseconds, hopefully allows for precise movement
+		int m1Microseconds = round(M1 * 5.555555555555556);
+		int m2Microseconds = round(M1 * 5.555555555555556);
+		int m3Microseconds = round(M1 * 5.555555555555556); // Multiplier calculated by 1000us / 180 
+		int m4Microseconds = round(M1 * 5.555555555555556); // (movement range in us / movement range in degrees)
+		int m5Microseconds = round(M1 * 5.555555555555556);
+		int m6Microseconds = round(M1 * 5.555555555555556);
+		
+		_exit = 1;		//--------- Set "Exit" status to 1, 0 breaks loop
+	
+      while(_exit == 1){
+
+				delay(speed);  // Set step-delay
+				
+        if(M1 != _lastM1){	//----------------M1, BASE
+        if(M1 > _lastM1){
+            _lastM1++;
+            base.write(_lastM1);
+          }if(M1 < _lastM1){
+            _lastM1--;
+            base.write(_lastM1);
+            }
+		}
+        if(M2 != _lastM2){	//----------------M2, SHOULDER
+        if(M2 > _lastM2){
+            _lastM2++;
+            shoulder.write(_lastM2);
+          }if(M2 < _lastM2){
+            _lastM2--;
+            shoulder.write(_lastM2);
+            }
+        }
+        if(M3 != _lastM3){	//----------------M3, ELBOW
+        if(M3 > _lastM3){
+            _lastM3++;
+            elbow.write(_lastM3);
+          }if(M3 < _lastM3){
+            _lastM3--;
+            elbow.write(_lastM3);
+            }
+        }
+        if(M4 != _lastM4){	//----------------M4, WRIST VERTICAL
+        if(M4 > _lastM4){
+            _lastM4++;
+            wrist_v.write(_lastM4);
+          }if(M4 < _lastM4){
+            _lastM4--;
+            wrist_v.write(_lastM4);
+            }
+        }
+        if(M5 != _lastM5){	//----------------M5, WRIST ROTATION
+        if(M5 > _lastM5){
+            _lastM5++;
+            wrist_r.write(_lastM5);
+          }if(M5 < _lastM5){
+            _lastM5--;
+            wrist_r.write(_lastM5);
+            }
+        }
+        if(M6 != _lastM6){	//----------------M6, GRIPPER
+        if(M6 > _lastM6){
+            _lastM6++;
+            gripper.write(_lastM6);
+          }if(M6 < _lastM6){
+            _lastM6--;
+            gripper.write(_lastM6);
+            }
+        }
+        
+        if( M1 == _lastM1 	//---------------- check if motors have reached end location
+        &&  M2 == _lastM2
+        &&  M3 == _lastM3
+        &&  M4 == _lastM4
+        &&  M5 == _lastM5
+        &&  M6 == _lastM6
+        ){
+          _exit = 0;
+          }else{
+            _exit = 1;
+            }
+        }
+}
+
 /*
 	-------------------------------------------------------------------------------------------------------
 						Implements manual movement trough Serial monitor

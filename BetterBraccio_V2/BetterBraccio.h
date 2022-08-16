@@ -53,6 +53,62 @@ class BetterBraccio
 			int M5, 
 			int M6
 			);
+	void servoMove(int speed, 
+			double M1, 
+			int M2, 
+			int M3, 
+			int M4, 
+			int M5, 
+			int M6
+			);
+	void servoMove(int speed, 
+			int M1, 
+			double M2, 
+			int M3, 
+			int M4, 
+			int M5, 
+			int M6
+			);
+	void servoMove(int speed, 
+			int M1, 
+			int M2, 
+			double M3, 
+			int M4, 
+			int M5, 
+			int M6
+			);
+	void servoMove(int speed, 
+			int M1, 
+			int M2, 
+			int M3, 
+			double M4, 
+			int M5, 
+			int M6
+			);
+	void servoMove(int speed, 
+			int M1, 
+			int M2, 
+			int M3, 
+			int M4, 
+			double M5, 
+			int M6
+			);
+	void servoMove(int speed, 
+			int M1, 
+			int M2, 
+			int M3, 
+			int M4, 
+			int M5, 
+			double M6
+			);
+	void servoMove(int speed, 
+			double M1, 
+			double M2, 
+			double M3, 
+			double M4, 
+			double M5, 
+			double M6
+			);
 	void manualMove(int speed);
 	
 	private:
